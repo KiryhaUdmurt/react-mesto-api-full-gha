@@ -1,0 +1,26 @@
+.login__save-btn {
+  background-color: white;
+  color: black;
+  padding: 15px 0;
+  margin-top: 190px;
+  display: block;
+  border-radius: 2px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  transition: 0.35s ease-in-out;
+  border: 0;
+}
+
+.login__save-btn:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 425px) {
+  .login__save-btn {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
