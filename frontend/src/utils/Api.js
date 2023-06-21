@@ -1,13 +1,13 @@
 class Api {
-  constructor(baseUrl, token) {
+  constructor(baseUrl) {
     this._baseUrl = baseUrl;
-    this._token = token;
   }
 
   _getHeaders() {
+    const token = localStorage.getItem('token');
     return {
       "Content-Type": "application/json",
-      authorization: this._token,
+      authorization: `Bearer ${token}`,
     };
   }
 
@@ -19,19 +19,19 @@ class Api {
   }
 
   getUserInformation() {
-    return fetch(`${this._baseUrl}/v1/cohort-61/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
 
   getInitialCards() {
-    return fetch(`${this._baseUrl}/v1/cohort-61/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
 
   changeProfileInfo(data) {
-    return fetch(`${this._baseUrl}/v1/cohort-61/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._getHeaders(),
       body: JSON.stringify({
@@ -42,7 +42,7 @@ class Api {
   }
 
   addCard(data) {
-    return fetch(`${this._baseUrl}/v1/cohort-61/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._getHeaders(),
       body: JSON.stringify({
@@ -53,28 +53,28 @@ class Api {
   }
 
   deleteCard(id) {
-    return fetch(`${this._baseUrl}/v1/cohort-61/cards/${id}`, {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
 
   addLike(id) {
-    return fetch(`${this._baseUrl}/v1/cohort-61/cards/${id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
 
   deleteLike(id) {
-    return fetch(`${this._baseUrl}/v1/cohort-61/cards/${id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._getHeaders(),
     }).then(this._getJson);
   }
 
   changeAvatar(data) {
-    return fetch(`${this._baseUrl}/v1/cohort-61/users/me/avatar`, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._getHeaders(),
       body: JSON.stringify({
@@ -86,6 +86,5 @@ class Api {
 }
 
 export const api = new Api(
-  "https://mesto.nomoreparties.co",
-  "a3c18fa0-3704-4ba8-ba34-414472677779"
+  "http://localhost:3000"
 );

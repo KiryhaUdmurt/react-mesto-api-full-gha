@@ -26,14 +26,14 @@ function App() {
   const [cards, setCards] = useState([]);
 
   // INITIAL RENDER
-  useEffect(() => {
-    Promise.all([api.getUserInformation(), api.getInitialCards()])
-      .then(([userInfo, initialCards]) => {
-        setCurrentUser(userInfo);
-        setCards(initialCards);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   Promise.all([api.getUserInformation(), api.getInitialCards()])
+  //     .then(([userInfo, initialCards]) => {
+  //       setCurrentUser(userInfo);
+  //       setCards(initialCards);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   // POPUPS OPEN/CLOSE
   function closeAllPopups() {
@@ -66,7 +66,7 @@ function App() {
 
   // LIKE/DISLIKE
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((id) => id === currentUser._id);
 
     isLiked
       ? api
@@ -89,7 +89,7 @@ function App() {
 
   // CARD DELETE
   function handleDeleteCard(card) {
-    const isOwnCard = card.owner._id === currentUser._id;
+    const isOwnCard = card.owner === currentUser._id;
 
     if (isOwnCard) {
       api
@@ -161,14 +161,20 @@ function App() {
     }
 
     auth
-      .getContent(token)
+      .getContent()
       .then((user) => {
-        setUserData(user.data.email);
+        setUserData(user.email);
         setIsLoggedIn(true);
         navigate("/", { replace: true });
       })
       .catch((err) => console.log(err))
       .finally(() => setIsLoading(false));
+      Promise.all([api.getUserInformation(), api.getInitialCards()])
+      .then(([userInfo, initialCards]) => {
+        setCurrentUser(userInfo);
+        setCards(initialCards);
+      })
+      .catch((err) => console.log(err));
   }, [token, navigate]);
 
   // SIGNUP
