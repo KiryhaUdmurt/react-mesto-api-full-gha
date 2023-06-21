@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://kiryha.nomoredomains.rocks";
 const token = localStorage.getItem('token');
 
 const checkResponse = (res) => {

@@ -86,5 +86,5 @@ class Api {
 }
 
 export const api = new Api(
-  "http://localhost:3000"
+  "https://kiryha.nomoredomains.rocks"
 );
