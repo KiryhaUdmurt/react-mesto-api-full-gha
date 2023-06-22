@@ -6,8 +6,6 @@ const BadRequestError = require('../errors/bad-req-err');
 const AlreadyExistsError = require('../errors/already-exists-err');
 const AuthError = require('../errors/auth-err');
 
-const { SECRET_KEY = 'some-secret-key' } = process.env;
-
 const getUsers = async (req, res, next) => {
   try {
     const users = await userModel.find({});
