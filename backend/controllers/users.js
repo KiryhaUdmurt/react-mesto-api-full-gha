@@ -5,6 +5,7 @@ const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-req-err');
 const AlreadyExistsError = require('../errors/already-exists-err');
 const AuthError = require('../errors/auth-err');
+const { JWT_SECRET, NODE_ENV } = require('../utils/constants');
 
 const getUsers = async (req, res, next) => {
   try {

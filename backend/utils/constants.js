@@ -12,6 +12,8 @@ const FORBIDDEN_ERR = 403;
 
 const URL_REGEX = /https?:\/\/(www)?[0-9a-z\-._~:/?#[\]@!$&'()*+,;=]+[.]{1,}[0-9a-z\-._~:/?#[\]@!$&'()*+,;=]+/i;
 
+const { JWT_SECRET, NODE_ENV } = process.env;
+
 module.exports = {
   SERVER_ERR,
   BAD_REQ,
@@ -20,4 +22,6 @@ module.exports = {
   AUTH_ERR,
   FORBIDDEN_ERR,
   URL_REGEX,
+  JWT_SECRET,
+  NODE_ENV,
 };
