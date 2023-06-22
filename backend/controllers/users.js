@@ -121,7 +121,7 @@ const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await userModel.findUserByCredentials(email, password);
-    const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: '7d' });
+    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
     if (!token) {
       throw new AuthError('Неправильные почта или пароль');
     }
