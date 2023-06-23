@@ -3,6 +3,7 @@ import pageLogo from "../images/logo.svg";
 
 export default function Header({ isLoggedIn, onLogout, userData }) {
   const location = useLocation();
+  
   return (
     <header className="header">
       <img className="header__logo" src={pageLogo} alt="Логотип Место" />

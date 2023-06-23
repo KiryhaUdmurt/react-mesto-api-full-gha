@@ -163,7 +163,6 @@ function App() {
     auth
       .getContent()
       .then((user) => {
-        setUserData(user.email);
         setIsLoggedIn(true);
         navigate("/", { replace: true });
       })
@@ -172,6 +171,7 @@ function App() {
       Promise.all([api.getUserInformation(), api.getInitialCards()])
       .then(([userInfo, initialCards]) => {
         setCurrentUser(userInfo);
+        setUserData(userInfo.email);
         setCards(initialCards);
       })
       .catch((err) => console.log(err));
@@ -186,21 +186,28 @@ function App() {
         setIsRegistered(true);
         navigate("/sign-in", { replace: true });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsRegistered(false);
+        console.log(err);
+      });
   };
 
   // SIGNIN
   const authorizeUser = ({ email, password }) => {
     auth
-      .authorize(email, password)
-      .then((res) => {
+    .authorize(email, password)
+    .then((res) => {
         console.log(res);
         localStorage.setItem("token", res.token);
         setToken(res.token);
         setIsLoggedIn(true);
         navigate("/", { replace: true });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsAuthInfoPopupOpen(true);
+        setIsRegistered(false);
+        console.log(err)
+      });
   };
 
   // SIGNOUT
